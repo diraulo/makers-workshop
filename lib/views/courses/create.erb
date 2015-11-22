@@ -1,5 +1,5 @@
-<% form_for :course, '/course/create', id: 'create' do |f|  %>
+<% form_for :course, '/courses/create', id: 'create' do |f|  %>
   <%= f.text_field_block :title, caption: 'Course Title' %>
-  <%= f.text_field_block :description, caption: 'Course description' %>
+  <%= f.text_field_block :description, caption: 'Description' %>
   <%= f.submit 'Create' %>
 <% end %>

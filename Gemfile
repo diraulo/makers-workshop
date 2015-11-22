@@ -13,4 +13,6 @@ group :development, :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'dm-rspec'
+  gem 'database_cleaner'
+  gem 'pry-byebug'
 end

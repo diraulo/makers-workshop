@@ -1,0 +1,8 @@
+<% if session[:flash] %>
+  <%= session[:flash] %>
+  <% session[:flash].clear %>
+<% end %>
+
+<%= link_to 'Register', '/users/register' %>
+
+<%= yield %>
