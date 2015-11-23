@@ -20,6 +20,28 @@ class WorkshopApp < Sinatra::Base
   DataMapper.finalize
   DataMapper.auto_upgrade!
 
+  before do
+    @user = User.get(session[:user_id]) unless is_user?
+  end
+
+  register do
+    def auth(type)
+      condition do
+        redirect '/login' unless send("is#{type}?")
+      end
+    end
+  end
+
+  helpers do
+    def is_user?
+      @user |= nil
+    end
+
+    def current_user
+      @user
+    end
+  end
+
   get '/' do
     erb :index
   end
@@ -47,13 +69,30 @@ class WorkshopApp < Sinatra::Base
   end
 
   post '/users/create' do
-    User.create(
-      name: params[:user][:name],
-      email: params[:user][:email],
-      password_digest: params[:user][:password]
-    )
+    begin
+      User.create(
+        name: params[:user][:name],
+        email: params[:user][:email],
+        password: params[:user][:password],
+        password_confirmation: params[:user][:password_confirmation]
+      )
 
-    session[:flash] = "Your account has been created, #{params[:user][:name]}"
+      session[:flash] = "Your account has been created, #{params[:user][:name]}"
+      redirect '/'
+    rescue
+      session[:flash] = 'Could not register you... Check your input.'
+      redirect '/users/register'
+    end
+  end
+
+  get '/users/login' do
+    erb :'users/login'
+  end
+
+  post '/users/session' do
+    @user = User.authenticate(params[:email], params[:password])
+    session[:user_id] = @user.id
+    session[:flash] = "Successfully logged in #{@user.name}"
     redirect '/'
   end
 

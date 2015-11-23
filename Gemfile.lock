@@ -198,6 +198,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   capybara
   capybara-webkit
   cucumber
