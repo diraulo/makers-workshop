@@ -39,3 +39,7 @@ Feature: As an employee of an education institution
     And I should not see "Register"
 
   Scenario: Log out from the application
+    Given I am a registered and logged in user
+    And I click "Log out" link
+    Then I should be on the home page
+    And I should see "Successfully logged out"
