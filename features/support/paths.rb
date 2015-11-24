@@ -14,6 +14,8 @@ module NavigationHelpers
       '/'
     when /the Course index page/
       '/courses/index'
+    when /Create course page/
+      '/courses/create'
     when /Registration page/
       '/users/register'
     when /Log in page/

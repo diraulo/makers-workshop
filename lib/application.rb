@@ -9,7 +9,6 @@ require './lib/user'
 class WorkshopApp < Sinatra::Base
   register Padrino::Helpers
   set :protect_from_csrf, true
-  set :admin_logged_in, false
 
   enable :sessions
   set :session_secret, '11223344556677'
@@ -27,14 +26,15 @@ class WorkshopApp < Sinatra::Base
   register do
     def auth(type)
       condition do
-        redirect '/login' unless send("is#{type}?")
+        restrict_access = Proc.new { session[:flash] = 'You are not authorized to access this page'; redirect '/' }
+        restrict_access.call unless send("is_#{type}?")
       end
     end
   end
 
   helpers do
     def is_user?
-      @user |= nil
+      @user != nil
     end
 
     def current_user
@@ -51,7 +51,7 @@ class WorkshopApp < Sinatra::Base
     erb :'courses/index'
   end
 
-  get '/courses/create' do
+  get '/courses/create', auth: :user do
     erb :'courses/create'
   end
 
