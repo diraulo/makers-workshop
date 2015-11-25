@@ -1,7 +1,20 @@
 <% if @courses.any? %>
   <% @courses.each do |course| %>
-    <h3><%= course.title %></h3>
-    <p><%= course.description  %></p>
+    <div id="course-<%= course.id %>">
+      <h3><%= course.title %></h3>
+      <p><%= course.description  %></p>
+
+      <% if course.deliveries %>
+        <h5>Delivery dates:</h5>
+        <ul>
+          <% course.deliveries.each do |date| %>
+            <li><%= date.start_date %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <%= link_to 'Add Delivery date', "/courses/#{course.id}/add_date" %>
+    </div>
   <% end %>
 <% else %>
   <h1>You have not created any courses</h1>
