@@ -7,6 +7,7 @@ require './lib/course'
 require './lib/user'
 require './lib/delivery'
 require './lib/student'
+require './lib/certificate'
 
 require './lib/csv_parse'
 
@@ -83,14 +84,21 @@ class WorkshopApp < Sinatra::Base
 
   get '/courses/deliveries/show/:id', auth: :user do
     @delivery = Delivery.get(params[:id].to_i)
-    binding.pry
     erb :'courses/deliveries/show'
   end
 
   post '/courses/deliveries/file_upload' do
     @delivery = Delivery.get(params[:id])
-    binding.pry
     CSVParse.import(params[:file][:tempfile], Student, @delivery)
+    redirect "/courses/deliveries/show/#{@delivery.id}"
+  end
+
+  get '/courses/generate/:id' do
+    @delivery = Delivery.get(params[:id])
+    @delivery.students.each do |student|
+      c = student.certificates.new(created_at: DateTime.now, delivery: @delivery)
+      c.save
+    end
     redirect "/courses/deliveries/show/#{@delivery.id}"
   end
 

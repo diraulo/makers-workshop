@@ -55,6 +55,15 @@ Given(/^the delivery for the course "([^"]*)" is set to "([^"]*)"$/) do |name, d
   )
 end
 
+And(/^the data file for "([^"]*)" is imported$/) do |date|
+  steps %(
+    And I am on the Course index page
+    And I click on "#{date}" for the "Basic programming" Course
+    When I select the "students.csv" file
+    And I click "Submit" link
+  )
+end
+
 And(/^I click on "([^"]*)" for the "([^"]*)" ([^"]*)$/) do |element, name, model|
   object = Object.const_get(model).find(name: name).first
   find("#course-#{object.id}").click_link(element)
@@ -66,4 +75,9 @@ end
 
 Then(/^([^"]*) instances of "([^"]*)" should be created$/) do |count, model|
   expect(Object.const_get(model).count).to eq count.to_i
+end
+
+Then(/^([^"]*) certificates should be generated$/) do |count|
+  pdf_count = Dir['pdf/**/*.pdf'].length
+  expect(pdf_count).to eq count.to_i
 end

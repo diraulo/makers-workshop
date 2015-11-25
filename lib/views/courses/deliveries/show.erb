@@ -12,5 +12,8 @@
     <% @delivery.students.each do |student| %>
       <%= [student.full_name, ''].join(' ') %>
     <% end %>
+    <div>
+      <%= link_to 'Generate certificates', "/courses/generate/#{@delivery.id}" %>
+    </div>
   <% end %>
 </div>
