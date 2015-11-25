@@ -30,5 +30,5 @@ describe Certificate do
     end
   end
 
-  after { FileUtils.rm_rf Dir['pdf/**/*.pdf'] }
+  after { FileUtils.rm_rf Dir['pdf/test/**/*.pdf'] }
 end

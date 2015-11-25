@@ -78,6 +78,6 @@ Then(/^([^"]*) instances of "([^"]*)" should be created$/) do |count, model|
 end
 
 Then(/^([^"]*) certificates should be generated$/) do |count|
-  pdf_count = Dir['pdf/**/*.pdf'].length
+  pdf_count = Dir['pdf/test/**/*.pdf'].length
   expect(pdf_count).to eq count.to_i
 end
