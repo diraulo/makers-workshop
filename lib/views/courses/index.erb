@@ -8,7 +8,7 @@
         <h5>Delivery dates:</h5>
         <ul>
           <% course.deliveries.each do |date| %>
-            <li><%= date.start_date %></li>
+            <li><%= link_to date.start_date, "/courses/deliveries/show/#{date.id}" %></li>
           <% end %>
         </ul>
       <% end %>

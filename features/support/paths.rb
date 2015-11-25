@@ -20,6 +20,9 @@ module NavigationHelpers
       '/users/register'
     when /Log in page/
       '/users/login'
+    when /^(.*) show page$/i
+      delivery = Delivery.find(date: $1).first
+      "/courses/deliveries/show/#{delivery.id}"
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

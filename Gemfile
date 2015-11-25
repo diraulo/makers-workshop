@@ -16,4 +16,5 @@ group :development, :test do
   gem 'dm-rspec'
   gem 'database_cleaner'
   gem 'pry-byebug'
+  gem 'launchy'
 end
