@@ -38,7 +38,6 @@ module CertificateGenerator
       pdf.move_down 65
       pdf.text "To verify this certificate, visit: #{url}", indent_paragraphs: 100, size: 8
     end
-    binding.pry
     im = Magick::Image.read(output)
     im[0].write("assets/img/usr/#{ENV_PATH}/" + [details[:name], details[:date]].join('_').downcase.gsub!(/\s/, '_') + '.jpg')
   end

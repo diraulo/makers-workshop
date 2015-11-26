@@ -10,7 +10,6 @@ Feature: As a course administrator
     When I select the "students.csv" file
     And I click "Submit" link
     Then 3 instances of "Student" should be created
-    Then show me the page
     And I should see "Students:"
     And I should see "Thomas Ochman"
     And I should see "Anders Andersson"
