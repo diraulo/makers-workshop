@@ -1,4 +1,4 @@
-require 'certificate_generator'
+require './lib/certificate_generator'
 
 class Certificate
   include DataMapper::Resource

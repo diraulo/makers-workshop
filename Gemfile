@@ -9,6 +9,7 @@ gem 'dm-postgres-adapter'
 gem 'pg'
 gem 'bcrypt'
 gem 'prawn'
+gem 'rmagick'
 
 group :development, :test do
   gem 'rspec'

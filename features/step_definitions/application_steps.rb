@@ -81,3 +81,8 @@ Then(/^([^"]*) certificates should be generated$/) do |count|
   pdf_count = Dir['pdf/test/**/*.pdf'].length
   expect(pdf_count).to eq count.to_i
 end
+
+And(/^([^"]*) images of certificates should be created$/) do |count|
+  image_count = Dir['assets/img/usr/test/**/*.jpg'].length
+  expect(image_count).to eq count.to_i
+end
