@@ -23,6 +23,9 @@ module NavigationHelpers
     when /^(.*) show page$/i
       delivery = Delivery.find(date: $1).first
       "/courses/deliveries/show/#{delivery.id}"
+    when /the valid certificate page/
+      c = Certificate.last
+      "/verify/#{c.identifier}"
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

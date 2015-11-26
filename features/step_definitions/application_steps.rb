@@ -64,6 +64,15 @@ And(/^the data file for "([^"]*)" is imported$/) do |date|
   )
 end
 
+Given(/^valid certificates exists$/) do
+  steps %(
+    Given the delivery for the course "Basic" is set to "2015-12-01"
+    And the data file for "2015-12-01" is imported
+    And I am on 2015-12-01 show page
+    And I click "Generate certificates" link
+  )
+end
+
 And(/^I click on "([^"]*)" for the "([^"]*)" ([^"]*)$/) do |element, name, model|
   object = Object.const_get(model).find(name: name).first
   find("#course-#{object.id}").click_link(element)
@@ -85,4 +94,9 @@ end
 And(/^([^"]*) images of certificates should be created$/) do |count|
   image_count = Dir['assets/img/usr/test/**/*.jpg'].length
   expect(image_count).to eq count.to_i
+end
+
+And(/^I visit the url for a certificate$/) do
+  cert = Certificate.last
+  visit "/verify/#{cert.identifier}"
 end

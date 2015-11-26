@@ -140,6 +140,17 @@ class WorkshopApp < Sinatra::Base
     redirect '/'
   end
 
+  # Verification URI
+  get '/verify/:hash' do
+    @certificate = Certificate.first(identifier: params[:hash])
+    if @certificate
+      @image = "/img/usr/#{env}/" + [@certificate.student.full_name, @certificate.delivery.start_date].join('_').downcase.gsub!(/\s/, '_') + '.jpg'
+      erb :'verify/valid'
+    else
+      erb :'verify/invalid'
+    end
+  end
+
   # start the server if ruby file executed directly
   run! if app_file == $0
 end
